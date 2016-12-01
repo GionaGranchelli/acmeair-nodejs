@@ -1,6 +1,8 @@
-# Acme Air in NodeJS 
+# Acme Air in NodeJS
 
 An implementation of the Acme Air sample application for NodeJS.  This implementation can support multiple datastores, can run in several application modes, and can support running on a variety of runtime platforms including standalone bare metal  system, Virtual Machines, docker containers, IBM Bluemix, IBM Bluemix Container Service.
+
+Oh.
 
 ## Content
 
@@ -12,15 +14,15 @@ An implementation of the Acme Air sample application for NodeJS.  This implement
 
 Environment variable dbtype is used to determine the datastore choice. MongoDB is default. See under "More on configurations".
 
-* [MongoDB](http://www.mongodb.org) 
-* [Cloudant](http://cloudant.com) 
-* [Cassandra](http://cassandra.apache.org) 
+* [MongoDB](http://www.mongodb.org)
+* [Cloudant](http://cloudant.com)
+* [Cassandra](http://cassandra.apache.org)
 
 ### Application Mode
 
 Environment variable AUTH_SERVICE is use to determine when Micro-Service is used. Default is Monolitic. See under "More on configurations".
 
-#### Monolithic 
+#### Monolithic
 
 One NodeJS application. The default mode.
 
@@ -47,42 +49,42 @@ Assume MongoDB started on 127.0.0.1:27017
 ### Run Acmeair in Monolithic on Local
 
 	node app.js
-		
-		
+
+
 ### Run Acmeair in Micro-Service on Local
 
 	node authservice-app.js
 	set AUTH_SERVICE=localhost:9443 or export AUTH_SERVICE=localhost:9443
 	node app.js
-	
+
 ### Run Acmeair in Micro-Service with Netflix Hystrix Stream enabled on Local
 
 	node authservice-app.js
 	set AUTH_SERVICE=localhost:9443 or export AUTH_SERVICE=localhost:9443
 	set enableHystrix=true or export enableHystrix=true
-	
+
 	node app.js
-	
-	
-### Access Application 
+
+
+### Access Application
 
 	http://localhost:9080/
-	
-	Load Database 
+
+	Load Database
 		preload 10k customers uid[0..9999]@email.com:password, 5 days' flights.  Defined in loader/loader-settings.json
 	Login
 	Flights
-		such as Singapore to HongKong or Paris to Moscow 
+		such as Singapore to HongKong or Paris to Moscow
 	Checkin
 		cancel some booked flights
 	Account
 		update account info
-	Logout	
-	
+	Logout
+
 	If hystrix is enabled, it is available at : http://localhost:9080/rest/api/hystrix.stream
-	
-	
-	
+
+
+
 ## More on Configurations
 
 ### Environment Variables
@@ -90,7 +92,7 @@ Assume MongoDB started on 127.0.0.1:27017
 Name | Default | Meaning
 --- | --- | ---
 dbtype | mongo | You can switch between mongo,cloudant,cassandra for datastore choices. When running on Bluemix, dbtype is automactially discovered from the service the application is bound to.
-AUTH_SERVICE |  | By default, there is only one main NodeJS application for all logics. When defined, in the format of host:port, it enables Micro-Service mode, main NodeJS application delegates to authorization service NodeJS application hosted on host:port. 
+AUTH_SERVICE |  | By default, there is only one main NodeJS application for all logics. When defined, in the format of host:port, it enables Micro-Service mode, main NodeJS application delegates to authorization service NodeJS application hosted on host:port.
 enableHystrix | false | setting it to true will enable hystrix stream available at /rest/api/hystrix.stream
 MONGO_URL||Mongo database URL. Take precedence over other settings
 CLOUDANT_URL||Cloudant database URL. Take precedence over other settings
@@ -106,7 +108,7 @@ Name | Default | Meaning
 mongoHost | 127.0.0.1 | MongoDB host ip
 mongoPort | 27017 | MongoDB port
 mongoConnectionPoolSize | 10 | MongoDB connection pool size
-cloudant_host| | Cloudant database host name 
+cloudant_host| | Cloudant database host name
 cloudant_port| 443 | Cloudant database port
 cloudant_username | | Cloudant database username/API key
 cloudant_password | | Cloudant database password
@@ -145,5 +147,5 @@ MAX_FLIGHTS_PER_DAY | 1 | max flights per day
 
 The data format is NOT the same as Acmeair Java. The impact:
 
-* You can not share database with Acmeair Java. 
+* You can not share database with Acmeair Java.
 * When drive acmeair workload, you need follow the [instruction](https://github.com/acmeair/acmeair/wiki/jMeter-Workload-Instructions) to use -DusePureIDs=true when starting jmeter.
